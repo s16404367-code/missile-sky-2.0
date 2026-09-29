@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Missile Sky 2.0 - Modern Space Defense Game">
+    <meta name="keywords" content="game, missile, defense, space, html5, javascript">
+    <meta name="author" content="Arena.ai Premium Agent">
+    
+    <title>Missile Sky 2.0 - Space Defense Game</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="assets/images/turret.png">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen">
+        <div class="loading-content">
+            <h1 class="game-title">MISSILE SKY</h1>
+            <p class="version">2.0</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Loading Assets...</p>
+        </div>
+    </div>
+
+    <!-- Main Menu Screen -->
+    <div id="menu-screen" class="screen hidden">
+        <div class="menu-content">
+            <h1 class="game-title">MISSILE SKY</h1>
+            <p class="version">2.0</p>
+            <p class="subtitle">Defend Earth from Alien Invasion</p>
+            
+            <div class="menu-buttons">
+                <button id="play-btn" class="btn primary">PLAY GAME</button>
+                <button id="how-to-play-btn" class="btn secondary">HOW TO PLAY</button>
+                <button id="high-scores-btn" class="btn secondary">HIGH SCORES</button>
+                <button id="settings-btn" class="btn secondary">SETTINGS</button>
+            </div>
+            
+            <div class="credits">
+                <p>Built with HTML5 & JavaScript</p>
+                <p>By Arena.ai Premium Agent</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Play Screen -->
+    <div id="how-to-play-screen" class="screen hidden">
+        <div class="modal-content">
+            <h2>HOW TO PLAY</h2>
+            <div class="instructions">
+                <div class="instruction-item">
+                    <h3>🎯 Objective</h3>
+                    <p>Defend Earth by destroying alien ships before they reach the planet's surface.</p>
+                </div>
+                <div class="instruction-item">
+                    <h3>🖱️ Controls</h3>
+                    <ul>
+                        <li><strong>Mouse:</strong> Move to aim, Click to shoot</li>
+                        <li><strong>Touch:</strong> Tap to shoot (mobile)</li>
+                        <li><strong>Keyboard:</strong> SPACE to fire, P to pause, ESC to menu</li>
+                    </ul>
+                </div>
+                <div class="instruction-item">
+                    <h3>⚔️ Power-Ups</h3>
+                    <div class="powerups-grid">
+                        <div class="powerup-item">
+                            <span class="powerup-icon">🔥</span>
+                            <p><strong>Rapid Fire:</strong> Faster shooting for 10s</p>
+                        </div>
+                        <div class="powerup-item">
+                            <span class="powerup-icon">🛡️</span>
+                            <p><strong>Shield:</strong> Invincibility for 15s</p>
+                        </div>
+                        <div class="powerup-item">
+                            <span class="powerup-icon">💥</span>
+                            <p><strong>Nuke:</strong> Destroy all enemies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="instruction-item">
+                    <h3>📊 Scoring</h3>
+                    <table class="scoring-table">
+                        <tr><td>Scout Enemy</td><td>10 pts</td></tr>
+                        <tr><td>Fighter Enemy</td><td>25 pts</td></tr>
+                        <tr><td>Boss Enemy</td><td>100 pts</td></tr>
+                        <tr><td>Wave Bonus</td><td>500 pts</td></tr>
+                        <tr><td>Power-up</td><td>50 pts</td></tr>
+                    </table>
+                </div>
+            </div>
+            <button id="back-from-how-to-play" class="btn back">BACK</button>
+        </div>
+    </div>
+
+    <!-- High Scores Screen -->
+    <div id="high-scores-screen" class="screen hidden">
+        <div class="modal-content">
+            <h2>🏆 HIGH SCORES</h2>
+            <div id="high-scores-list">
+                <!-- Populated by JavaScript -->
+            </div>
+            <button id="back-from-high-scores" class="btn back">BACK</button>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen hidden">
+        <div class="modal-content">
+            <h2>⚙️ SETTINGS</h2>
+            <div class="settings-options">
+                <div class="setting-item">
+                    <label>Sound Effects</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="sound-toggle" checked>
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label>Background Music</label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="music-toggle" checked>
+                        <span class="slider"></span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <label>Volume</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="70">
+                </div>
+                <div class="setting-item">
+                    <label>Difficulty</label>
+                    <select id="difficulty-select">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+            </div>
+            <button id="back-from-settings" class="btn back">BACK</button>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="screen hidden">
+        <div class="game-over-content">
+            <h1>GAME OVER</h1>
+            <p id="final-score">Score: 0</p>
+            <p id="final-wave">Wave: 0</p>
+            <p id="new-high-score" class="hidden">NEW HIGH SCORE! 🎉</p>
+            <div class="game-over-buttons">
+                <button id="replay-btn" class="btn primary">PLAY AGAIN</button>
+                <button id="menu-from-game-over" class="btn secondary">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="screen hidden">
+        <div class="pause-content">
+            <h2>⏸️ PAUSED</h2>
+            <div class="pause-buttons">
+                <button id="resume-btn" class="btn primary">RESUME</button>
+                <button id="restart-btn" class="btn secondary">RESTART</button>
+                <button id="menu-from-pause" class="btn secondary">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <canvas id="game-canvas"></canvas>
+        
+        <!-- HUD -->
+        <div id="hud">
+            <div class="hud-left">
+                <div class="score-display">
+                    <span class="hud-label">SCORE</span>
+                    <span id="score-value">0</span>
+                </div>
+                <div class="wave-display">
+                    <span class="hud-label">WAVE</span>
+                    <span id="wave-value">1</span>
+                </div>
+            </div>
+            
+            <div class="hud-center">
+                <div class="health-bar">
+                    <span class="hud-label">HEALTH</span>
+                    <div class="health-fill"></div>
+                </div>
+            </div>
+            
+            <div class="hud-right">
+                <div class="powerup-indicators">
+                    <span id="rapid-fire-indicator" class="powerup-indicator hidden">🔥</span>
+                    <span id="shield-indicator" class="powerup-indicator hidden">🛡️</span>
+                </div>
+                <div class="timer-display">
+                    <span id="powerup-timer"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="bg-music" loop>
+        <source src="assets/sounds/background.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="laser-sound">
+        <source src="assets/sounds/laser.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="explosion-sound">
+        <source src="assets/sounds/explosion.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="powerup-sound">
+        <source src="assets/sounds/powerup.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="game-over-sound">
+        <source src="assets/sounds/gameover.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
